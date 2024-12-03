@@ -91,7 +91,6 @@ func sd_check(data []int) bool {
 
 		new_data = remove(new_data, d)
 
-		fmt.Println(new_data)
 		if allTests(derivative(new_data), new_data) {
 			return true
 		}
