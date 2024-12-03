@@ -99,10 +99,11 @@ func sd_check(data []int) bool {
 	return false
 }
 
-func n_safe(data []string) int {
+func n_safe(data []string) (int, int) {
 
 	int_data := []LoL{}
 	sum_ok := 0
+	sum_ok_dump := 0
 
 	for row := range data {
 		row_data := strings.Split(data[row], " ")
@@ -118,12 +119,12 @@ func n_safe(data []string) int {
 	for row := range int_data {
 		if s_check(derivative(int_data[row].data), int_data[row].data) {
 			sum_ok += 1
-		} else if sd_check(int_data[row].data) {
-			sum_ok += 1
+		} else if s_check(derivative(int_data[row].data), int_data[row].data) || sd_check(int_data[row].data) {
+			sum_ok_dump += 1
 		}
 	}
 
-	return sum_ok
+	return sum_ok, sum_ok_dump + sum_ok
 
 }
 
