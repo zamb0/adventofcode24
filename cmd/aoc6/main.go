@@ -123,27 +123,21 @@ func makeObastacle(matrix [][]rune, memory []string) int {
 
 	loops := 0
 
-	//fmt.Println(memory)
 	for key := range memory {
 
-		//neighbors := [5][2]int{{0, 0}, {-1, 0}, {0, 1}, {1, 0}, {0, -1}}
-		neighbors := [1][2]int{{0, 0}}
-		for _, neighbor := range neighbors {
+		newMatrix := deepCopyMatrix(matrix)
 
-			newMatrix := deepCopyMatrix(matrix)
+		mkey := [2]int{0, 0}
+		fmt.Sscanf(memory[key], "%d,%d", &mkey[0], &mkey[1])
 
-			mkey := [2]int{0, 0}
-			fmt.Sscanf(memory[key], "%d,%d", &mkey[0], &mkey[1])
+		if newMatrix[mkey[0]][mkey[1]] == '.' {
+			newMatrix[mkey[0]][mkey[1]] = 'O'
+		} else {
+			continue
+		}
 
-			if newMatrix[mkey[0]+neighbor[0]][mkey[1]+neighbor[1]] == '.' {
-				newMatrix[mkey[0]+neighbor[0]][mkey[1]+neighbor[1]] = 'O'
-			} else {
-				continue
-			}
-
-			if _, l := navigationInMatrix(newMatrix, true); l {
-				loops++
-			}
+		if _, l := navigationInMatrix(newMatrix, true); l {
+			loops++
 		}
 
 	}
